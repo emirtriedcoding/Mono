@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "productloop.storage.iran.liara.space",
+        protocol : "https"
+      },
+    ],
+  },
+};
 
 export default nextConfig;
