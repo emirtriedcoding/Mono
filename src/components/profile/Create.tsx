@@ -40,6 +40,8 @@ import { toast } from "sonner";
 import { useCallback, useState } from "react";
 
 const Create = ({ session }: { session: Session | null }) => {
+
+
   const [image, setImage] = useState("");
   const schema = zod.object({
     prompt: zod.string().min(10, {
@@ -151,34 +153,33 @@ const Create = ({ session }: { session: Session | null }) => {
                 </p>
                 <div className="grid grid-cols-3 gap-3">
                   {models.map((model) => (
-                    <div
-                      key={model.value}
-                      onClick={() => {
-                        session.user.plan !== "BASIC" &&
-                          form.setValue("model", model.value);
-                      }}
-                      className={cn(
-                        session.user.plan === "BASIC"
-                          ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer hover:scale-105",
-                        "flex flex-col gap-3 items-center transition"
-                      )}
-                    >
-                      <Image
-                        className={cn(
-                          form.watch("model") === model.value &&
-                            "border-2 border-primary",
-                          "rounded-lg"
-                        )}
-                        src={`/assets/models/${model.value}.jpeg`}
-                        width="1000"
-                        height="1000"
-                        alt={model.value}
-                      />
-                      <span className="text-xs font-bold text-primary">
-                        {model.label}
-                      </span>
-                    </div>
+                   <div
+                   key={model.value}
+                   onClick={() => {
+                     if (session?.user?.plan !== "BASIC") {
+                       form.setValue("model", model.value);
+                     }
+                   }}
+                   className={cn(
+                     session?.user?.plan === "BASIC"
+                       ? "cursor-not-allowed opacity-50"
+                       : "cursor-pointer hover:scale-105",
+                     "flex flex-col gap-3 items-center transition"
+                   )}
+                 >
+                   <Image
+                     className={cn(
+                       form.watch("model") === model.value && "border-2 border-primary",
+                       "rounded-lg"
+                     )}
+                     src={`/assets/models/${model.value}.jpeg`}
+                     width="1000"
+                     height="1000"
+                     alt={model.value}
+                   />
+                   <span className="text-xs font-bold text-primary">{model.label}</span>
+                 </div>
+                 
                   ))}
                 </div>
               </div>
@@ -192,7 +193,7 @@ const Create = ({ session }: { session: Session | null }) => {
                     </FormLabel>
                     <FormControl>
                       <Select
-                        disabled={session.user.plan === "BASIC"}
+                        disabled={session?.user.plan === "BASIC"}
                         dir="rtl"
                         onValueChange={(value) => field.onChange(value)}
                         defaultValue="1024*1024"

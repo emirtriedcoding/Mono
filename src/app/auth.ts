@@ -3,7 +3,6 @@ import Nextauth from "next-auth";
 import Google from "next-auth/providers/google";
 import Github from "next-auth/providers/github";
 
-import { Account, Profile } from "next-auth"; // Importing necessary types from NextAuth
 import prisma from "@/lib/prisma";
 
 export const {

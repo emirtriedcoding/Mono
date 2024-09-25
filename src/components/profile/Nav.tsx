@@ -25,6 +25,7 @@ const Nav = () => {
     <div className="w-fit p-3 bg-secondary rounded-lg shadow-sm flex items-center gap-2">
       {routes.map((route) => (
         <Link
+        key={route.path}
           href={route.path}
           className={cn(
             pathname === route.path && "bg-primary/50",

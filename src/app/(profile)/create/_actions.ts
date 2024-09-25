@@ -112,7 +112,7 @@ export const generateImage = async (data: data) => {
   )}-${Date.now()}-${uuidv4()}.jpeg`;
 
   const params = {
-    Bucket: process.env.LIARA_BUCKET_NAME,
+    Bucket: process.env.LIARA_BUCKET_NAME as string,
     Key: uniqueKey, // Add .jpeg extension
     Body: imageResponse.data, // Binary data of the image
     ContentType: "image/jpeg",

@@ -1,20 +1,24 @@
 "use client";
 
-import { Image as ImageType } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 
 import { Masonry } from "react-plock";
 import { Skeleton } from "../ui/skeleton";
 import { Download, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
+interface Image {
+  id: string;
+  url: string;
+  key: string;
+}
+
 const Gallery = () => {
   const queryClient = useQueryClient();
 
-  const { data: images, isLoading } = useQuery<ImageType[]>({
+  const { data: images, isLoading } = useQuery<Image[]>({
     queryKey: ["gallery"],
     queryFn: () => axios.get("/api/gallery").then((res) => res.data),
   });
